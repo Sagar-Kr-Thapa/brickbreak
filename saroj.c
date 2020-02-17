@@ -6,6 +6,8 @@
 #define RIGHT 100
 #define WIDTH 1600
 #define HEIGHT 700
+int blength=131;
+int bthick=40;
 /*border*/
 typedef struct{
     int inih,inik;//ini means initial
@@ -27,6 +29,7 @@ int RX1=150,RY1=50,RX2=1200,RY2=650;
 
 
 void screen(void);
+void makebricks(void);
 int changeKicker(int,int,int,int);
 void drawKicker(int,int ,int);
 void moveBall(int,int ,int ,int ,int);
@@ -69,8 +72,7 @@ int main(){
     l.curpos=l.inipos;
     b.h=b.inih;
     b.k=b.inik;
-    setcolor(RED);
-    rectangle(300,100,1000,200);
+    makebricks();
    // floodfill()
     while(1){
     delay(50);
@@ -78,7 +80,7 @@ int main(){
         if(b.h>=RX2-b.r || b.h<=RX1+5+b.r){  //5 is added for boundary effect
             b.vx=b.vx*(-1);
         }
-        if (b.h>=l.curpos && b.h<=l.curpos+l.len){
+        if (b.h>=l.curpos-4 && b.h<=l.curpos+l.len+4 ){
         if(b.k>=(RY2-b.r-l.thick)){
             b.vy=b.vy*(-1);
         }
@@ -129,6 +131,16 @@ void screen(){
     setcolor(YELLOW);
     rectangle(RX1,RY1,RX2,RY2);
 
+}
+void makebricks(void){
+    int i=0;
+    int x1=RX1+1,y1=RY1+2;
+    setcolor(RED);
+    while (i<=7){
+    rectangle(x1,y1,x1+blength,y1+bthick);
+    x1=x1+blength;
+    i++;
+    }
 }
 int  changeKicker(int in,int dis,int len,int thick){
 
